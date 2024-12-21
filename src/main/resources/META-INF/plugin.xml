@@ -4,6 +4,7 @@
     <vendor>lipanre</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.database</depends>
 
     <resource-bundle>i18n.zh-CN</resource-bundle>
 </idea-plugin>

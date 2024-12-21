@@ -18,6 +18,9 @@ private const val BUNDLE = "i18n.zh-CN"
  */
 object MessageSource: DynamicBundle(BUNDLE) {
 
+    /**
+     * 从多语言资源包中获取对应key的值
+     */
     @JvmStatic
     fun message(@PropertyKey(resourceBundle = BUNDLE) key: String, vararg params: Any): String = getMessage(key, *params)
 }
