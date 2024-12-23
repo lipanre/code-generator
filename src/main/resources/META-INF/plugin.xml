@@ -7,4 +7,11 @@
     <depends>com.intellij.database</depends>
 
     <resource-bundle>i18n.zh-CN</resource-bundle>
+
+    <actions>
+        <action id="CodeGenerator.DataBaseGenerator" class="com.lipanre.code.generator.action.DataBaseGenerator"
+                text="Code-Generator" description="Generate code from database or table">
+            <add-to-group group-id="DatabaseViewPopupMenu" anchor="first"/>
+        </action>
+    </actions>
 </idea-plugin>
