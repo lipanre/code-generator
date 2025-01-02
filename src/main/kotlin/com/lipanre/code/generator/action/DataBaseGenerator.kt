@@ -2,6 +2,7 @@ package com.lipanre.code.generator.action
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.lipanre.code.generator.DataBaseGeneratorConfig
 import com.lipanre.code.generator.DataBaseGeneratorDialog
 import java.util.*
 
@@ -13,7 +14,7 @@ import java.util.*
 class DataBaseGenerator: AnAction() {
 
     override fun actionPerformed(event: AnActionEvent) {
-        event.project?.let { DataBaseGeneratorDialog(it) }
+        event.project?.let { DataBaseGeneratorDialog(DataBaseGeneratorConfig(), it) }
     }
 
 }

@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>com.github.lipanre.code.generator</id>
+    <id>com.lipanre.code.generator</id>
     <name>Code-Generator</name>
     <vendor>lipanre</vendor>
 
