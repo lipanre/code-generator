@@ -38,18 +38,10 @@ class DataBaseGeneratorDialog(
             row(MessageSource.message("title.template-select")) {
                 val comboBox = comboBox(templates).bindItem(config::template).align(Align.FILL).component
 
-                comboBox.selectedItem?.let {
-                    // 选中的模板
-                    FileUtil.listScratchesPluginFiles(dirName, it as String).forEach(templateFileNames::add)
-                }
+                comboBox.selectedItem?.let { fillTemplateFileNames(it as String) }
 
                 // 点击事件监听
-                comboBox.addActionListener { it ->
-                    (it.source as ComboBox<*>).selectedItem?.let {
-                        // 选中的模板
-                        FileUtil.listScratchesPluginFiles(dirName, it as String).forEach(templateFileNames::add)
-                    }
-                }
+                comboBox.addActionListener { it -> (it.source as ComboBox<*>).selectedItem?.let { fillTemplateFileNames(it as String) } }
             }
 
             group(MessageSource.message("group.template-list")) {
@@ -95,4 +87,9 @@ class DataBaseGeneratorDialog(
         println("comboBox select template template name is: $templateFileNames")
         super.show()
     }
+
+    private fun fillTemplateFileNames(fileName: String) {
+        FileUtil.listScratchesPluginFiles(dirName, fileName).forEach(templateFileNames::add)
+    }
+
 }
