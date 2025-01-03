@@ -3,10 +3,7 @@ package com.lipanre.code.generator
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogWrapper
-import com.intellij.ui.dsl.builder.Align
-import com.intellij.ui.dsl.builder.bindItem
-import com.intellij.ui.dsl.builder.bindText
-import com.intellij.ui.dsl.builder.panel
+import com.intellij.ui.dsl.builder.*
 import javax.swing.JComponent
 
 /**
@@ -37,17 +34,15 @@ class DataBaseGeneratorDialog(
 
             row(MessageSource.message("title.template-select")) {
                 val comboBox = comboBox(templates).bindItem(config::template).align(Align.FILL).component
-
                 comboBox.selectedItem?.let { fillTemplateFileNames(it as String) }
-
                 // 点击事件监听
                 comboBox.addActionListener { it -> (it.source as ComboBox<*>).selectedItem?.let { fillTemplateFileNames(it as String) } }
             }
 
             group(MessageSource.message("group.template-list")) {
                 row {
-                    templateFileNames.forEach {
-                        checkBox(it)
+                    templateFileNames.forEach { templateName ->
+                        checkBox(templateName).bindSelected({ config.templateSwitch.getOrDefault(templateName, true) },{ config.templateSwitch[templateName] = it })
                     }
                 }.rowComment(MessageSource.message("group.template-list-comment"))
             }
