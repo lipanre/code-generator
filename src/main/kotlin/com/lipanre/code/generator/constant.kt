@@ -14,3 +14,10 @@ object DialogConstant {
     const val WIDTH = 730
     const val HEIGHT = 500
 }
+
+/**
+ * 常量变量
+ */
+object DataConstant {
+    const val pluginId = "com.lipanre.code.generator"
+}

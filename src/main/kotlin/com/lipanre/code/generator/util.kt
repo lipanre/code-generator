@@ -1,13 +1,11 @@
 package com.lipanre.code.generator
 
 import com.intellij.ide.extensionResources.ExtensionsRootType
-import com.intellij.ide.scratch.RootType
 import com.intellij.ide.scratch.ScratchFileService
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
-import com.intellij.util.containers.stream
 import java.io.File
-import kotlin.io.path.Path
+import java.util.Objects
 
 /**
  * {@code description}
@@ -23,35 +21,28 @@ object FileUtil {
     /**
      * 创建文件选择器
      */
-    fun createFileChooserDescriptor(
-        chooseFolders: Boolean,
-        chooseFiles: Boolean = !chooseFolders
-    ): FileChooserDescriptor {
+    fun createFileChooserDescriptor( chooseFolders: Boolean, chooseFiles: Boolean = !chooseFolders ): FileChooserDescriptor {
         return FileChooserDescriptor(chooseFiles, chooseFolders, false, false, false, false)
     }
 
     /**
      * 获取scratches and consoles下面的所有文件对象
      */
-    fun listScratchesPluginFiles(
-        dirName: String,
-        type: ExtensionsRootType = ExtensionsRootType.getInstance(),
-        pluginId: String = "com.lipanre.code.generator"
-    ): Array<out String>? {
+    fun listScratchesPluginFiles(vararg paths: String, pluginId: String = DataConstant.pluginId, type: ExtensionsRootType = ExtensionsRootType.getInstance()): Array<out String> {
 
         val rootPath = ScratchFileService.getInstance().getRootPath(type)
         val id: PluginId? = PluginId.findId(pluginId)
-        if (!exists(rootPath, dirName) && id != null) {
+        if (!exists(rootPath, *paths) && id != null) {
             type.extractBundledResources(id, "")
         }
-        return getFile(rootPath, pluginId, dirName).list()
+        return getFile(rootPath, pluginId, *paths).list().orEmpty()
     }
 
     /**
      * 判断指定路径的文件是否存在
      */
-    private fun exists(path: String, fileName: String): Boolean {
-        return getFile(path, fileName).exists()
+    private fun exists(path: String, vararg subPaths: String): Boolean {
+        return getFile(path, *subPaths).exists()
     }
 
     /**
