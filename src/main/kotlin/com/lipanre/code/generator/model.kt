@@ -22,6 +22,11 @@ data class DataBaseGeneratorConfig(var outputPath: String = "", var template: St
     private val dirName = "templates"
 
     /**
+     * 文件生成配置
+     */
+    val generateFileConfig: GenerateFileConfig = GenerateFileConfig()
+
+    /**
      * 模板列表
      */
     val templates by lazy {
@@ -38,3 +43,5 @@ data class DataBaseGeneratorConfig(var outputPath: String = "", var template: St
         FileUtil.listScratchesPluginFiles(dirName, fileName).forEach(templateFileNames::add)
     }
 }
+
+data class GenerateFileConfig(var ignoreTablePrefix: String = "")

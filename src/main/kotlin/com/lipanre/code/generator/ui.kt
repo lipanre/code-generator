@@ -74,6 +74,13 @@ class DataBaseGeneratorDialog(
                     updateCheckBoxPanel()
                 }.rowComment(MessageSource.message("group.template-list-comment"))
             }
+
+            group (MessageSource.message("group.file-generate-config")) {
+                row {
+                    label(MessageSource.message("file-generate-config.ignore-table-prefix"))
+                    textField().bindText(config.generateFileConfig::ignoreTablePrefix)
+                }
+            }
         }
     }
 
